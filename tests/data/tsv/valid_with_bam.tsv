@@ -1,0 +1,3 @@
+sample	family	filtering	track	vcf	bam
+NA12877	FAM1	filter1	track1	tests/data/NA12877.vcf	tests/data/NA12877.bam
+NA12878	FAM1	filter2	track2	tests/data/NA12878.vcf	tests/data/NA12878.bam

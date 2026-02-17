@@ -19,7 +19,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install snakemake pandas pytest
+          pip install snakemake pandas pytest snakefmt
+
+      - name: lint snakemake files
+        run: |
+          snakefmt workflow/ --check --verbose
+
+      - name: lint python files
+        run: |
+          black --check --verbose . 
 
       - name: tests
         run: |

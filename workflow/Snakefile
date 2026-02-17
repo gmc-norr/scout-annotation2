@@ -26,12 +26,18 @@ input_file = config.get("input_file")
 input_data = pd.read_table(input_file, sep="\t")
 
 
-input_data = tsv_to_family_dict(input_file)
-validate_files_exist(input_data)
+include: "rules/annotate.smk"
+include: "rules/coverage.smk"
+include: "rules/filtering.smk"
+include: "rules/normalization.smk"
+include: "rules/ped.smk"
+include: "rules/common.smk"
 
 
-# Define case_names before using it in expand
+input_data = get_input()
+
 
 rule all:
     input:
-        expand(f"{annotation_dir}/{{family}}.scout_anno.vcf.gz", family=input_data.keys())
+        get_final_annotated_vcfs(),
+        get_final_d4s(),

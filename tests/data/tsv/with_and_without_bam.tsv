@@ -1,0 +1,3 @@
+sample	family	filtering	track	vcf	bam
+S1	FAM1	filt	track	S1.vcf	S1.bam
+S3	FAM2	filt	track	S3.vcf	
