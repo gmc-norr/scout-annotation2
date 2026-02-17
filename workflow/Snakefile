@@ -1,10 +1,7 @@
 from pathlib import Path
-from pandas import pd
-from parse_input import tsv_to_family_dict, validate_files_exist
-
 
 # Create output directories
-results_dir = Path(config["results_dir"])
+results_dir = Path(config["results_dir"]) / config.get("results_dir_name", "scout_anno_results")
 results_dir.mkdir(exist_ok=True)
 
 annotation_dir = results_dir / "annotation"
@@ -19,25 +16,32 @@ filtering_dir.mkdir(exist_ok=True)
 normalization_dir = results_dir / "normalization"
 normalization_dir.mkdir(exist_ok=True)
 
+decompose_dir = results_dir / "decompose"
+decompose_dir.mkdir(exist_ok=True)
+
 ped_dir = results_dir / "pedigree"
 ped_dir.mkdir(exist_ok=True)
 
-input_file = config.get("input_file")
-input_data = pd.read_table(input_file, sep="\t")
+rank_model_dir = results_dir / "rank_model"
+rank_model_dir.mkdir(exist_ok=True)
 
 
-include: "rules/annotate.smk"
+include: "rules/annotation.smk"
 include: "rules/coverage.smk"
 include: "rules/filtering.smk"
-include: "rules/normalization.smk"
+include: "rules/normalize.smk"
 include: "rules/ped.smk"
 include: "rules/common.smk"
 
 
+# Get validated family dict
 input_data = get_input()
 
 
+#rule all:
+#    input:
+#        get_final_annotated_vcfs(input_data, str(annotation_dir)),
+#        get_final_d4s(input_data, str(coverage_dir)),
+
 rule all:
     input:
-        get_final_annotated_vcfs(),
-        get_final_d4s(),
