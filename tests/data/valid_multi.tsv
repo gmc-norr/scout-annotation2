@@ -1,0 +1,4 @@
+sample	family	filtering	track	vcf
+sample1	fam1	filter1	track1	file1.vcf
+sample2	fam1	filter2	track2	file2.vcf
+sample3	fam2	filter3	track3	file3.vcf

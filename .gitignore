@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Snakemake
+.snakemake/
+*.snakemake.log
+
+# Environment files
+.env
+.venv/
+venv/
+ENV/
+env/
+Pipfile.lock
+poetry.lock
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test output
+htmlcov/
+.coverage
+.cache/
+.pytest_cache/
+
+# Misc
+*.bak
+*.swp

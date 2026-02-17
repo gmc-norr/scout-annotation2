@@ -1,0 +1,37 @@
+from pathlib import Path
+from pandas import pd
+from parse_input import tsv_to_family_dict, validate_files_exist
+
+
+# Create output directories
+results_dir = Path(config["results_dir"])
+results_dir.mkdir(exist_ok=True)
+
+annotation_dir = results_dir / "annotation"
+annotation_dir.mkdir(exist_ok=True)
+
+coverage_dir = results_dir / "coverage"
+coverage_dir.mkdir(exist_ok=True)
+
+filtering_dir = results_dir / "filtering"
+filtering_dir.mkdir(exist_ok=True)
+
+normalization_dir = results_dir / "normalization"
+normalization_dir.mkdir(exist_ok=True)
+
+ped_dir = results_dir / "pedigree"
+ped_dir.mkdir(exist_ok=True)
+
+input_file = config.get("input_file")
+input_data = pd.read_table(input_file, sep="\t")
+
+
+input_data = tsv_to_family_dict(input_file)
+validate_files_exist(input_data)
+
+
+# Define case_names before using it in expand
+
+rule all:
+    input:
+        expand(f"{annotation_dir}/{{family}}.scout_anno.vcf.gz", family=input_data.keys())
