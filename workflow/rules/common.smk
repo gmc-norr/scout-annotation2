@@ -56,5 +56,14 @@ def get_family_vcf(family, annotation_dir):
 def get_sample_translation_path(family, sample):
     return f"decompose/{family}/{sample}.samples.txt"
 
-def get_family_track(input_data: dict, family: str):
-    return f"{annotation_dir}/{family}/{family}.track.txt"
+def get_track(wildcards):
+    track = input_data[wildcards.family][0].get("track")
+    return track if track else "somatic"
+    
+
+def get_vcfanno_config(wildcards):
+    sample_track = get_track(wildcards)
+    genome_build = config["genome_build"]
+    # TODO: set this up for structural variants
+    version = config["vcfanno"]["config_version"][sample_track]
+    return f"rank_model/grch{genome_build}_{sample_track}_vcfanno_config_{version}.toml"
